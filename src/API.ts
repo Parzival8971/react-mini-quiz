@@ -25,6 +25,7 @@ export const Difficulty = {
   HARD: 'hard',
 } as const;
 
+// eslint-disable-next-line @typescript-eslint/no-redeclare
 type Difficulty = typeof Difficulty[keyof typeof Difficulty];
 
 // type

@@ -1,10 +1,12 @@
 import React from 'react';
+// 타입정의
+import { newUserAnswerType } from '../App';
 
-type Props = {
+type questionCardType = {
   question: string;
   answers: Array<string>;
-  callback: any;
-  userAnswer: boolean;
+  callback: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  userAnswer: newUserAnswerType | undefined;
   questionNr: number;
   totalQuestions: number;
 };
@@ -16,7 +18,7 @@ const QuestionCard = ({
   userAnswer,
   questionNr,
   totalQuestions,
-}) => {
+}: questionCardType) => {
   return (
     <div>
       <p>
@@ -26,7 +28,12 @@ const QuestionCard = ({
       <div>
         {answers.map((answer) => (
           <div key={answer}>
-            <button disabled={userAnswer} onClick={callback}>
+            {/* <button disabled={!!userAnswer} value={answer} onClick={callback}> */}
+            <button
+              disabled={userAnswer ? true : false}
+              value={answer}
+              onClick={callback}
+            >
               <span dangerouslySetInnerHTML={{ __html: answer }}></span>
             </button>
           </div>
