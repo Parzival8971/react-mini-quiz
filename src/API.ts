@@ -41,7 +41,7 @@ export const fetchQuizQuestions = async (
 ) => {
   const endpoint = `https://opentdb.com/api.php?amount=${amount}&category=31&difficulty=${difficulty}&type=multiple`;
   const response = await axios.get(endpoint);
-  return response.data.results.map((question) => ({
+  return response.data.results.map((question: QuestionsState) => ({
     ...question,
     answers: shuffleArray([
       ...question.incorrect_answers,
