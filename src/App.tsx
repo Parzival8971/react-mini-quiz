@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 // 엔드포인트
-import { fetchQuizQuestions } from './API';
+import { fetchQuizQuestions } from './API/API';
 // 컴포넌트
 import QuestionCard from './components/QuestionCard';
 // 타입정의
-import { QuestionsState, Difficulty } from './API';
+import { QuestionsState, Difficulty } from './API/API';
 // 스타일지정
 import { GlobalStyle, Wrapper } from './App.styles';
 

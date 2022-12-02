@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { shuffleArray } from './utils';
+import { shuffleArray } from '../utils/utils';
 
 export interface Question {
   category: string;
