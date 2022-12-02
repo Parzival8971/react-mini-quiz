@@ -1,6 +1,8 @@
 import React from 'react';
 // 타입정의
 import { newUserAnswerType } from '../App';
+// 스타일정의
+import { Wrapper, ButtonWrapper } from './QuestionCard.styles';
 
 type questionCardType = {
   question: string;
@@ -20,14 +22,18 @@ const QuestionCard = ({
   totalQuestions,
 }: questionCardType) => {
   return (
-    <div>
-      <p>
+    <Wrapper>
+      <div className='question'>
         Question: {questionNr} / {totalQuestions}
-      </p>
+      </div>
       <p dangerouslySetInnerHTML={{ __html: question }}></p>
       <div>
         {answers.map((answer) => (
-          <div key={answer}>
+          <ButtonWrapper
+            key={answer}
+            correct={userAnswer?.correctAnswer === answer}
+            userClicked={userAnswer?.answer === answer}
+          >
             {/* <button disabled={!!userAnswer} value={answer} onClick={callback}> */}
             <button
               disabled={userAnswer ? true : false}
@@ -36,10 +42,10 @@ const QuestionCard = ({
             >
               <span dangerouslySetInnerHTML={{ __html: answer }}></span>
             </button>
-          </div>
+          </ButtonWrapper>
         ))}
       </div>
-    </div>
+    </Wrapper>
   );
 };
 
