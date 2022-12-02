@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 // 엔드포인트
 import { fetchQuizQuestions } from './API';
 // 컴포넌트
@@ -31,7 +31,7 @@ const App = () => {
   // 시작과 끝
   const [gameOver, setGameOver] = useState(true);
 
-  const startTrivia = async () => {
+  const startTrivia = useCallback(async () => {
     setLoading(true);
     setGameOver(false);
 
@@ -51,28 +51,31 @@ const App = () => {
     setUserAnswers([]);
     setNumber(0);
     setLoading(false);
-  };
+  }, []);
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!gameOver) {
-      // 유저의 값
-      const answer = e.currentTarget.value;
-      // 유저가 체크한 값
-      const correct = questions[number].correct_answer === answer;
-      // 두 값이 맞으면 점수 +1
-      if (correct) setScore((prev) => prev + 1);
-      // Save the answer in the array for user answers
-      const newUserAnswer = {
-        question: questions[number].question,
-        answer,
-        correct,
-        correctAnswer: questions[number].correct_answer,
-      };
-      setUserAnswers((prev) => [...prev, newUserAnswer]);
-    }
-  };
+  const checkAnswer = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (!gameOver) {
+        // 유저의 값
+        const answer = e.currentTarget.value;
+        // 유저가 체크한 값
+        const correct = questions[number].correct_answer === answer;
+        // 두 값이 맞으면 점수 +1
+        if (correct) setScore((prev) => prev + 1);
+        // Save the answer in the array for user answers
+        const newUserAnswer = {
+          question: questions[number].question,
+          answer,
+          correct,
+          correctAnswer: questions[number].correct_answer,
+        };
+        setUserAnswers((prev) => [...prev, newUserAnswer]);
+      }
+    },
+    [gameOver, number, questions]
+  );
 
-  const nextQuestion = () => {
+  const nextQuestion = useCallback(() => {
     const nextQ = number + 1;
 
     if (nextQ === TOTAL_QUESTIONS) {
@@ -80,7 +83,8 @@ const App = () => {
     } else {
       setNumber(nextQ);
     }
-  };
+  }, [number]);
+
   return (
     <>
       <GlobalStyle />
