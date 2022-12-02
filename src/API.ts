@@ -39,7 +39,7 @@ export interface QuestionsState extends Question {
 export const fetchQuizQuestions = async (
   amount: number,
   difficulty: Difficulty
-) => {
+): Promise<Array<QuestionsState>> => {
   const endpoint = `https://opentdb.com/api.php?amount=${amount}&category=9&difficulty=${difficulty}&type=multiple`;
   const response = await axios.get(endpoint);
   return response.data.results.map((question: QuestionsState) => ({
